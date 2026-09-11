@@ -1,0 +1,59 @@
+import logging
+import os
+
+from config.settings import LOGS_DIR, LOG_FILE, CSV_FILE, EXCEL_SAIDA
+from monitoring.metrics import inicio_tempo, fase_log
+from processing.transform import executar_pipeline
+
+
+
+def configure_logging():
+    os.makedirs(LOGS_DIR, exist_ok=True)
+
+    # Formato padrão para ficheiro e consola
+    log_format = "%(asctime)s | %(levelname)s | %(message)s"
+
+    # Handler para gravar em ficheiro
+    file_handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
+    file_handler.setFormatter(logging.Formatter(log_format))
+
+    # Handler para mostrar no terminal (consola)
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter(log_format))
+
+    logging.basicConfig(
+        level=logging.INFO,
+        handlers=[file_handler, console_handler],
+        force=True
+    )
+
+    
+
+
+def main():
+
+    configure_logging()
+
+    logging.info("========================================")
+    logging.info("Início da execução")
+
+    if not os.path.exists(CSV_FILE):
+            logging.error(f"Arquivo não encontrado: {CSV_FILE}")
+            print("Arquivo não encontrado")
+            return
+    
+    
+
+    executar_pipeline(
+        csv_caminho=CSV_FILE,
+        excel_saida_caminho=EXCEL_SAIDA,
+        tamanho_lote=100_000
+    )
+
+
+    
+    logging.info("Fim da execução")
+
+
+if __name__ == "__main__":
+    main()
