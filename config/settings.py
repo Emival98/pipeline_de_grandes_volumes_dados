@@ -1,5 +1,8 @@
 import os 
+from dotenv import load_dotenv
 from datetime import date
+
+load_dotenv()
 
 hoje_str = date.today().strftime("%Y%m%d")
 
@@ -23,5 +26,5 @@ PASTA_EXCEL = os.path.join(PROJECT_ROOT, "files")
 
 EXCEL_SAIDA = os.path.join(PASTA_EXCEL, f"{NOME_RELATORIO}_{hoje_str}.xlsx")
 
-QUERY_SQL = "SELECT * FROM [EcommerceLab].[ecommerce].[Orders]"
+QUERY_SQL = os.getenv("DB_QUERY")
 
