@@ -1,9 +1,10 @@
 import logging
 import os
 
-from config.settings import LOGS_DIR, LOG_FILE, CSV_FILE, EXCEL_SAIDA
-from monitoring.metrics import inicio_tempo, fase_log
+from config.settings import LOGS_DIR, LOG_FILE, EXCEL_SAIDA, QUERY_SQL, NOME_RELATORIO
+#from monitoring.metrics import inicio_tempo, fase_log
 from processing.transform import executar_pipeline
+
 
 
 
@@ -37,15 +38,13 @@ def main():
     logging.info("========================================")
     logging.info("Início da execução")
 
-    if not os.path.exists(CSV_FILE):
-            logging.error(f"Arquivo não encontrado: {CSV_FILE}")
-            print("Arquivo não encontrado")
-            return
+          
     
     
-
+    
     executar_pipeline(
-        csv_caminho=CSV_FILE,
+        nome_relatorio=NOME_RELATORIO,
+        query=QUERY_SQL,
         excel_saida_caminho=EXCEL_SAIDA,
         tamanho_lote=100_000
     )

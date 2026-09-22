@@ -2,6 +2,7 @@ import gc
 import logging
 import polars as pl
 import xlsxwriter
+from config.settings import NOME_RELATORIO
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
@@ -27,7 +28,7 @@ def criar_contexto_excel(
 
 def _adicionar_nova_folha(ctx: dict):
     """Cria uma nova folha (Sheet) e escreve o cabeçalho."""
-    nome_folha = f"Dados_Parte_{ctx['contagem_folhas']}"
+    nome_folha = f"{NOME_RELATORIO}{ctx['contagem_folhas']}"
     logging.info(f"A criar nova folha no Excel: {nome_folha}")
 
     ctx["folha_atual"] = ctx["folha_trabalho"].add_worksheet(nome_folha)

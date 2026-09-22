@@ -18,3 +18,7 @@ __pycache__/
 .ruff_cache/
 
 *.log
+
+data
+
+consultar_driver.py
