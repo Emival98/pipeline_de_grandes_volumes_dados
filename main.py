@@ -1,9 +1,10 @@
 import logging
 import os
 
-from config.settings import LOGS_DIR, LOG_FILE, EXCEL_SAIDA, QUERY_SQL, NOME_RELATORIO
+from config.settings import LOGS_DIR, LOG_FILE, EXCEL_SAIDA, QUERY_SQL, NOME_RELATORIO, MEU_EMAIL, DESTINATARIOS, CORPO, ASSUNTO
 #from monitoring.metrics import inicio_tempo, fase_log
 from processing.transform import executar_pipeline
+from email_service.email_server import send_email
 
 
 
@@ -48,6 +49,11 @@ def main():
         excel_saida_caminho=EXCEL_SAIDA,
         tamanho_lote=100_000
     )
+
+    send_email(fonte=MEU_EMAIL,
+               destinatarios=DESTINATARIOS,
+               assunto=ASSUNTO,
+               mensagem=CORPO)
 
 
     
