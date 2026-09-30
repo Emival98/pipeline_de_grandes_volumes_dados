@@ -48,6 +48,9 @@ evitando concatenar todo o resultado em memória.
 
     
     conn = conexao()
+    if conn is None:
+        logging.error("Conexão com o banco falhou. Interrompendo a execução.")
+        raise RuntimeError("Não foi possível conectar ao banco de dados.")
     
     logging.info("Iniciando a leitura SQL em lotes de %s registros", f"{tamanho_lote:,}",)
     inicio = inicio_tempo()

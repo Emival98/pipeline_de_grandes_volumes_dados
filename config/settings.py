@@ -6,7 +6,7 @@ load_dotenv()
 
 hoje_str = date.today().strftime("%Y%m%d")
 
-#Pastas
+#______________________Pastas
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))
 )
@@ -15,6 +15,7 @@ PROJECT_ROOT = os.path.dirname(
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
 LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
+PASTA_EXCEL = os.path.join(PROJECT_ROOT, "files")
 
 #________________Nome do Relatorio
 NOME_RELATORIO = "Orders"
@@ -23,8 +24,6 @@ NOME_RELATORIO = "Orders"
 LOG_FILE = os.path.join(LOGS_DIR, f"{NOME_RELATORIO}{hoje_str}.log")
 
 CSV_FILE = os.path.join(DATA_DIR, "play_by_play.csv")
-
-PASTA_EXCEL = os.path.join(PROJECT_ROOT, "files")
 
 EXCEL_SAIDA = os.path.join(PASTA_EXCEL, f"{NOME_RELATORIO}_{hoje_str}.xlsx")
 

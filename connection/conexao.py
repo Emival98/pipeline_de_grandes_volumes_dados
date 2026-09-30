@@ -8,22 +8,31 @@ import polars as pl
 import logging
 
 
-load_dotenv()
+load_dotenv(override=True)
 
 server = os.getenv("DB_SERVER")
-porta = os.getenv("DB_PORT")
 database = os.getenv("DB_NAME")
 driver = os.getenv("DB_DRIVER")
+usuario = os.getenv("DB_USER")
+senha = os.getenv("DB_PASSWORD")
+
 
 
 def conexao():
+    print(repr(server))
+    if not all([server, database, driver, usuario, senha]):
+        logging.error("Faltam variáveis no ficheiro .env. Verifique se ele foi carregado.")
+        return None
+    
     try:
-        logging.info("Conectando na BD")
+        logging.info(f"A conectar à BD no servidor: {server}...")
         texto_conexao = pyodbc.connect(
         f"DRIVER={driver};"
         f"SERVER={server};"
         f"DATABASE={database};"
-        "Trusted_Connection=yes;"
+        f"UID={usuario};"
+        f"PWD={senha};"
+        #"Trusted_Connection=yes;"
                                     )
         return texto_conexao
     except pyodbc.OperationalError as e:
@@ -42,7 +51,7 @@ def testar_ligacao():
         cursor.execute("SELECT top 1000 * FROM EcommerceLab.[ecommerce].[Customers]")
 
         resultado = cursor.fetchone()
-        print(f"Data de hoje: {resultado[0]}")
+        return f"Data de hoje: {resultado[0]}"
 
         
 
@@ -54,3 +63,8 @@ def testar_ligacao():
 
     finally:
         texto_conexao.close()
+
+
+teste = testar_ligacao()
+
+print(teste)
